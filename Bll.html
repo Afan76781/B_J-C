@@ -1,0 +1,43 @@
+<html lang="en">
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Bill Information</title> 
+  <link rel="stylesheet" href="https://rawcdn.githack.com/Afan76781/JANI--KDBJBZ/53e6af8a3d17d21968db6042a2d5f77847c5be1d/styles.css"> 
+ </head> 
+ <body> 
+  <div class="container"> 
+   <h2 style="text-align: center">Bill Information</h2> 
+   <div class="input-group"> 
+    <label for="company">Select Electric Company</label> 
+    <select id="company"> <option value="MEPCO">MEPCO</option> <option value="HESCO">HESCO</option> <option value="IESCO">IESCO</option> <option value="FESCO">FESCO</option> <option value="PESCO">PESCO</option> <option value="TESCO">TESCO</option> <option value="QESCO">QESCO</option> <option value="SEPCO">SEPCO</option> <option value="GEPCO">GEPCO</option> </select> 
+   </div> 
+   <div class="input-group"> 
+    <label for="reference">Enter Reference Number</label> 
+    <input type="number" id="reference" placeholder="Enter Reference Number"> 
+   </div> 
+   <div style="display: flex; justify-content: space-between; align-items: center;"> 
+    <button id="searchBtn">Search</button> 
+    <a id="openBillBtn" style="display: none;" target="_blank">Open Bill</a> 
+    <div class="telegram-button-container"> 
+    </div> 
+    <a class="telegram-button" href="https://t.me/rumair3" target="_blank">Join Our Telegram Channel</a> 
+    <script>
+        const page = document.querySelector('.pdfShow');
+        const openBillBtn = document.getElementById("openBillBtn");
+        
+        document.getElementById("searchBtn").addEventListener("click", async () => {
+            const selectedCompany = document.getElementById("company").value;
+            const referenceNumber = document.getElementById("reference");
+            const response = await fetch(`/getBillInfo/${selectedCompany}/${referenceNumber.value}`);
+            const data = await response.json();
+            
+            openBillBtn.href = data;
+            openBillBtn.style.display = "inline"; 
+            openBillBtn.textContent = "Open Bill:  You're bill is ready!";
+        });
+    </script> 
+   </div> 
+  </div> 
+ </body>
+</html>
